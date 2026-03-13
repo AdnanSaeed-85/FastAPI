@@ -1,14 +1,12 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Path
 import json
 
 app = FastAPI()
 
-from pathlib import Path
-
 def data_loader():
-    path = Path(__file__).parent / "patient_data.json"
-    with open(path, "r") as f:
-        return json.load(f)
+    with open('patient_data.json', 'r') as f:
+        data = json.load(f)
+        return data
 
 @app.get('/')
 def title():
@@ -22,3 +20,13 @@ def about():
 def view():
     data = data_loader()
     return data
+
+@app.get('/patient/{patient_id}')
+def particualr_patient(patient_id: str = Path(..., description='ID of the patient in the DB', example='P001')):
+    data = data_loader()
+
+    for key, value in data.items():
+        if patient_id in key:
+            return value
+
+    return {'message': 'No result found'}
