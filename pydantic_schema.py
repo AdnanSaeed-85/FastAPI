@@ -1,9 +1,9 @@
 from typing import List, Dict
-from pydantic import BaseModel, EmailStr, AnyUrl
+from pydantic import BaseModel, EmailStr, AnyUrl, Field
 
 class schema(BaseModel):
     name: str
-    age: int
+    age: int = Field(..., description="user's age", ge=20, le=40)
     email: EmailStr
     linkedin: AnyUrl
     smooker: bool
@@ -23,7 +23,7 @@ def patient_detail(Schema: schema):
     print(Schema.content_details)
     print(Schema.linkedin)
 
-detail = {'name': 'adnan', 'age': 23, 'smooker': True, 'email': 'saeedadnan151@gmail.com', 'weight': 88.3, 'height': 6.2, 'allergies': ['dust', 'foog'], 'content_details': {'phone': '3155682476', 'cnic': '4250118129795'}, 'linkedin': 'https://linkedin.com/adnansaeed'}
+detail = {'name': 'adnan', 'age': 40, 'smooker': True, 'email': 'saeedadnan151@gmail.com', 'weight': 88.3, 'height': 6.2, 'allergies': ['dust', 'foog'], 'content_details': {'phone': '3155682476', 'cnic': '4250118129795'}, 'linkedin': 'https://linkedin.com/adnansaeed'}
 
 pydantic_obj = schema(**detail)
 
