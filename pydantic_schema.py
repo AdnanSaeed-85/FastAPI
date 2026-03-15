@@ -1,4 +1,4 @@
-from typing import List, Dict
+from typing import List, Dict, Annotated
 from pydantic import BaseModel, EmailStr, AnyUrl, Field
 
 class schema(BaseModel):
@@ -8,7 +8,7 @@ class schema(BaseModel):
     linkedin: AnyUrl
     smooker: bool
     weight: float
-    height: float
+    height: Annotated[float, Field(..., title='Height', description='Height of the patient', strict=True, examples=[6.1, 5.6, 5.9, 6.0])]
     allergies: List[str]
     content_details: Dict[str, str]
 
