@@ -12,6 +12,16 @@ class schema(BaseModel):
     allergies: List[str]
     content_details: Dict[str, str]
 
+    @field_validator('email')
+    @classmethod
+    def custom_validatoin(cls, value):
+        valid_email = ['gov.com', 'edu.com']
+        domain_name = value.split('@')[-1]
+        if domain_name not in valid_email:
+            raise ValueError('Not a valid domain')
+        return value
+        
+
 def patient_detail(Schema: schema):
     print(Schema.name)
     print(Schema.age)
