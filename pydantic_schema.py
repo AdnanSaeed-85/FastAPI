@@ -14,13 +14,17 @@ class schema(BaseModel):
 
     @field_validator('email')
     @classmethod
-    def custom_validatoin(cls, value):
+    def custom_email(cls, value):
         valid_email = ['gov.com', 'edu.com']
         domain_name = value.split('@')[-1]
         if domain_name not in valid_email:
             raise ValueError('Not a valid domain')
         return value
         
+    @field_validator('name')
+    @classmethod
+    def custom_name(cls, value):
+        return value.upper()
 
 def patient_detail(Schema: schema):
     print(Schema.name)
