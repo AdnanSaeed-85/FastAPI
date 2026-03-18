@@ -1,5 +1,5 @@
 from typing import List, Dict, Annotated
-from pydantic import BaseModel, EmailStr, AnyUrl, Field
+from pydantic import BaseModel, EmailStr, AnyUrl, Field, field_validator
 
 class schema(BaseModel):
     name: str
