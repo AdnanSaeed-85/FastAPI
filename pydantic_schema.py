@@ -26,6 +26,15 @@ class schema(BaseModel):
     def custom_name(cls, value):
         return value.upper()
 
+    @field_validator('age', mode='before')
+    @classmethod
+    def custom_age(cls, value):
+        if 0 < value < 100:
+            return value
+        else:
+            raise ValueError('age should between 0-100')
+
+
 def patient_detail(Schema: schema):
     print(Schema.name)
     print(Schema.age)
@@ -37,7 +46,7 @@ def patient_detail(Schema: schema):
     print(Schema.content_details)
     print(Schema.linkedin)
 
-detail = {'name': 'adnan', 'age': 40, 'smooker': True, 'email': 'saeedadnan151@edu.com', 'weight': 88.3, 'height': 6.2, 'allergies': ['dust', 'foog'], 'content_details': {'phone': '3155682476', 'cnic': '4250118129795'}, 'linkedin': 'https://linkedin.com/adnansaeed'}
+detail = {'name': 'adnan', 'age': '40', 'smooker': True, 'email': 'saeedadnan151@edu.com', 'weight': 88.3, 'height': 6.2, 'allergies': ['dust', 'foog'], 'content_details': {'phone': '3155682476', 'cnic': '4250118129795'}, 'linkedin': 'https://linkedin.com/adnansaeed'}
 
 pydantic_obj = schema(**detail)
 
